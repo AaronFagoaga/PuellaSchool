@@ -19,7 +19,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="categorie" class="form-label">Descripción:</label>
-                    <input type="number" id="rolInfo" name="rolInfo" class="form-control" required>
+                    <input type="text" id="rolInfo" name="rolInfo" class="form-control" required>
                 </div>
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-success">Guardar</button>
