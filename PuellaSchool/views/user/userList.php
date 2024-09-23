@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +14,13 @@
             border: none;
             padding: 0;
         }
+
         .password-toggle:hover {
             color: #0056b3;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="card mt-5 p-4">
@@ -42,7 +45,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($users as $user) : ?>
+                        <?php foreach ($users as $user) : ?>
                             <tr>
                                 <td><?= htmlspecialchars($user['userCode']); ?></td>
                                 <td><?= htmlspecialchars($user['userName']); ?></td>
@@ -94,5 +97,5 @@
         }
     </script>
 </body>
-</html>
 
+</html>

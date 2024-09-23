@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,14 +16,17 @@
             background: none;
             border: none;
         }
+
         .password-toggle:hover {
             color: #0056b3;
         }
+
         .input-group {
             position: relative;
         }
     </style>
 </head>
+
 <body>
     <div class="container mt-5">
         <div class="card p-4 shadow-lg">
@@ -33,7 +37,7 @@
                     <input type="text" id="userName" name="userName" value="<?= htmlspecialchars($users->userName) ?>" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                <label for="userGender" class="form-label">Género:</label>
+                    <label for="userGender" class="form-label">Género:</label>
                     <select id="userGender" name="userGender" class="form-select" required>
                         <option value="">Seleccione género</option>
                         <option value="Masculino">Masculino</option>
@@ -55,7 +59,7 @@
                 </div>
                 <div class="mb-3 input-group">
                     <label for="userPassword" class="form-label">Contraseña:</label>
-                    <input type="password" id="userPassword" name="userPassword" value="<?= htmlspecialchars($users->userPassword) ?> "class="form-control" required>
+                    <input type="password" id="userPassword" name="userPassword" value="<?= htmlspecialchars($users->userPassword) ?> " class="form-control" required>
                     <button type="button" class="password-toggle" onclick="togglePassword()">
                         <i id="password-icon" class="fas fa-eye"></i>
                     </button>
@@ -87,7 +91,7 @@
         function togglePassword() {
             var passwordInput = document.getElementById('userPassword');
             var icon = document.getElementById('password-icon');
-            
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 icon.classList.remove('fa-eye');
@@ -100,4 +104,5 @@
         }
     </script>
 </body>
+
 </html>

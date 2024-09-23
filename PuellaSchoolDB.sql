@@ -61,7 +61,7 @@ CREATE TABLE `tbl_role` (
   `rolName` varchar(50) NOT NULL,
   `rolInfo` varchar(255) NOT NULL,
   PRIMARY KEY (`RolID`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `tbl_role` (
 
 LOCK TABLES `tbl_role` WRITE;
 /*!40000 ALTER TABLE `tbl_role` DISABLE KEYS */;
-INSERT INTO `tbl_role` VALUES (6,'Admin','Rol de administrador'),(7,'Prueb','Te extraño mucho Gissellita'),(8,'Admin','Gissel dónde estás?!'),(11,'Otra prueba ','1231w'),(12,'Pruebve','sass'),(15,'s','22');
+INSERT INTO `tbl_role` VALUES (1,'Administrador','Administrador del sistema'),(2,'Maestro','Usuario con permisos de maestro');
 /*!40000 ALTER TABLE `tbl_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,7 +154,7 @@ CREATE TABLE `tbl_user` (
   UNIQUE KEY `userCode` (`userCode`),
   KEY `RolID` (`RolID`),
   CONSTRAINT `tbl_user_ibfk_1` FOREIGN KEY (`RolID`) REFERENCES `tbl_role` (`RolID`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +163,7 @@ CREATE TABLE `tbl_user` (
 
 LOCK TABLES `tbl_user` WRITE;
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (2,'u20200000','Marcos','Masculino','77447744','marc@gmail.com','MarcPlatz','202cb962ac59075b964b07152d234b70','Col. El Guayob',7),(4,'u20200022','Marcos','Masculinow','77447744','marc@gmail.com','MarcPlatz','202cb962ac59075b964b07152d234b70','Col. El Guayob',12),(6,'U22210154','Aaaron','Masculino','77341732','sraaron1@outlook.com','AaronF','123','Col presita 2',6),(7,'21313131','Gissell Márquez','Femenino','77341732','gigimqz@gmail.com','GigiMqz','123','Col presita 3',6),(9,'u20210124','Ariel','Trap','2131313','ariel@gmail.com','ArielUwU','123','Col presita 2',6);
+INSERT INTO `tbl_user` VALUES (1,'U001','Juan Pérez','Masculino','5555-1234','juan@example.com','ariel','202cb962ac59075b964b07152d234b70','Calle 1, Ciudad',1),(2,'U002','Ana García','Femenino','5555-5678','ana@example.com','aaron','202cb962ac59075b964b07152d234b70','Calle 2, Ciudad',2),(3,'U003','Carlos López','Masculino','5555-9876','carlos@example.com','carlol','202cb962ac59075b964b07152d234b70','Calle 3, Ciudad',2);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -859,4 +859,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-15 16:33:38
+-- Dump completed on 2024-09-22 18:08:16
