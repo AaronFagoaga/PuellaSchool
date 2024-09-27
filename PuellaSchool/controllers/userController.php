@@ -25,7 +25,6 @@ class UserController
     public function create()
     {
         if ($_POST) {
-            $this->user->userCode = $_POST['userCode'];
             $this->user->userName = $_POST['userName'];
             $this->user->userGender = $_POST['userGender'];
             $this->user->userPhone = $_POST['userPhone'];
@@ -70,8 +69,21 @@ class UserController
     public function delete($id)
     {
         $this->user->UserID = $id;
-        header("Location: userIndex.php");
-        return $this->user->delete();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['confirmDelete'])) {
+                $this->user->delete();
+                header("Location: userIndex.php");
+            } else {
+                header("Location: userIndex.php");
+            }
+            exit();
+        }
+
+        $this->user->getUserByID();
+        $user = $this->user;
+
+        include(dirname(__FILE__) . '/../views/user/userDelete.php');
     }
 
     public function login()

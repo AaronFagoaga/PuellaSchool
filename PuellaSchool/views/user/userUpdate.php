@@ -34,20 +34,20 @@
             <form action="" method="POST">
                 <div class="mb-3">
                     <label for="userName" class="form-label">Nombre:</label>
-                    <input type="text" id="userName" name="userName" value="<?= htmlspecialchars($users->userName) ?>" class="form-control" required>
+                    <input type="text" id="userName" name="userName" value="<?= htmlspecialchars($users->userName) ?>" class="form-control" required pattern="[A-Za-z\s]+" title="El nombre solo debe contener letras.">
                 </div>
                 <div class="mb-3">
                     <label for="userGender" class="form-label">Género:</label>
                     <select id="userGender" name="userGender" class="form-select" required>
                         <option value="">Seleccione género</option>
-                        <option value="Masculino">Masculino</option>
-                        <option value="Femenino">Femenino</option>
-                        <option value="Otro">Otro</option>
+                        <option value="Masculino" <?= ($users->userGender == 'Masculino') ? 'selected' : '' ?>>Masculino</option>
+                        <option value="Femenino" <?= ($users->userGender == 'Femenino') ? 'selected' : '' ?>>Femenino</option>
+                        <option value="Otro" <?= ($users->userGender == 'Otro') ? 'selected' : '' ?>>Otro</option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="userPhone" class="form-label">Teléfono:</label>
-                    <input type="text" id="userPhone" name="userPhone" class="form-control" required pattern="^\d{4}-\d{4}$" value="<?= htmlspecialchars($users->userPhone) ?>" required>
+                    <input type="text" id="userPhone" name="userPhone" class="form-control" required pattern="^\d{4}-\d{4}$" title="El formato del teléfono debe ser ####-####" value="<?= htmlspecialchars($users->userPhone) ?>">
                 </div>
                 <div class="mb-3">
                     <label for="userEmail" class="form-label">Correo electrónico:</label>
@@ -55,11 +55,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="userNickname" class="form-label">Nombre de usuario:</label>
-                    <input type="text" id="userNickname" name="userNickname" value="<?= htmlspecialchars($users->userNickname) ?>" class="form-control" required pattern="^\S+$" title="No se permiten espacios">
+                    <input type="text" id="userNickname" name="userNickname" value="<?= htmlspecialchars($users->userNickname) ?>" class="form-control" required pattern="^\S+$" title="No se permiten espacios en blanco en el nombre de usuario.">
                 </div>
                 <div class="mb-3 input-group">
                     <label for="userPassword" class="form-label">Contraseña:</label>
-                    <input type="password" id="userPassword" name="userPassword" value="<?= htmlspecialchars($users->userPassword) ?> " class="form-control" required>
+                    <input type="password" id="userPassword" name="userPassword" value="<?= htmlspecialchars($users->userPassword) ?>" class="form-control" required>
                     <button type="button" class="password-toggle" onclick="togglePassword()">
                         <i id="password-icon" class="fas fa-eye"></i>
                     </button>
@@ -68,8 +68,8 @@
                     <label for="RolID" class="form-label">Rol:</label>
                     <select id="RolID" name="RolID" class="form-select" required>
                         <?php foreach ($roles as $role): ?>
-                            <option value="<?php echo $role['RolID']; ?>" <?php echo $role['RolID'] == $users->RolID ? 'selected' : ''; ?>>
-                                <?php echo $role['rolName']; ?>
+                            <option value="<?= $role['RolID'] ?>" <?= ($role['RolID'] == $users->RolID) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($role['rolName']) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>

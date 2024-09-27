@@ -23,10 +23,9 @@ class UserModel
 
     public function Create()
     {
-        $query = "CALL sp_CreateUser (:Code, :Name, :Gender, :Phone, :Email, :Nickname, :Password, :Address, :rID);";
+        $query = "CALL sp_CreateUser (:Name, :Gender, :Phone, :Email, :Nickname, :Password, :Address, :rID);";
         $result = $this->conn->prepare($query);
 
-        $this->userCode = htmlspecialchars(strip_tags($this->userCode));
         $this->userName = htmlspecialchars(strip_tags($this->userName));
         $this->userGender = htmlspecialchars(strip_tags($this->userGender));
         $this->userPhone = htmlspecialchars(strip_tags($this->userPhone));
@@ -38,7 +37,6 @@ class UserModel
 
         $this->userPassword = md5($this->userPassword);
 
-        $result->bindParam(":Code", $this->userCode);
         $result->bindParam(":Name", $this->userName);
         $result->bindParam(":Gender", $this->userGender);
         $result->bindParam(":Phone", $this->userPhone);

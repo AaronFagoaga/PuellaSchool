@@ -25,8 +25,9 @@
     <div class="container">
         <div class="card mt-5 p-4">
             <h2 class="mb-4">Lista de usuarios</h2>
-            <div class="mb-3">
+            <div class="d-flex justify-content-between mb-3">
                 <a href="./userIndex.php?action=create" class="btn btn-success">Crear usuario</a>
+                <a href="../dist/pages/index.php" class="btn btn-secondary">Volver al inicio</a>
             </div>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
@@ -64,7 +65,7 @@
                                 <td><?= htmlspecialchars($user['rolName']); ?></td>
                                 <td class="text-center">
                                     <a href="userIndex.php?action=edit&id=<?= $user['UserID'] ?>" class="btn btn-warning btn-sm">Editar</a>
-                                    <a href="userIndex.php?action=delete&id=<?= $user['UserID'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?')">Eliminar</a>
+                                    <a href="userIndex.php?action=delete&id=<?= $user['UserID'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

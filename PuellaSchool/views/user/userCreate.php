@@ -34,10 +34,6 @@
             <h2 class="mb-4 text-center">Creación de usuario</h2>
             <form action="" method="POST" name="frmCreate" novalidate>
                 <div class="mb-3">
-                    <label for="userCode" class="form-label">Código:</label>
-                    <input type="text" id="userCode" name="userCode" class="form-control" required pattern="^U\d{8}$" title="Debe empezar con 'U' seguido de 8 dígitos, ejemplo: U12345678">
-                </div>
-                <div class="mb-3">
                     <label for="userName" class="form-label">Nombre:</label>
                     <input type="text" id="userName" name="userName" class="form-control" required>
                 </div>

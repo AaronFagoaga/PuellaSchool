@@ -61,7 +61,7 @@ CREATE TABLE `tbl_role` (
   `rolName` varchar(50) NOT NULL,
   `rolInfo` varchar(255) NOT NULL,
   PRIMARY KEY (`RolID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +96,7 @@ CREATE TABLE `tbl_student` (
   UNIQUE KEY `studentCode` (`studentCode`),
   KEY `VocationID` (`VocationID`),
   CONSTRAINT `tbl_student_ibfk_1` FOREIGN KEY (`VocationID`) REFERENCES `tbl_vocation` (`VocationID`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,6 +105,7 @@ CREATE TABLE `tbl_student` (
 
 LOCK TABLES `tbl_student` WRITE;
 /*!40000 ALTER TABLE `tbl_student` DISABLE KEYS */;
+INSERT INTO `tbl_student` VALUES (1,'U93768666','Paula Guadalupe','Dalu mi amor','Masculino','0745-3818','waluytomi@gmail.com','mi scorazón','Virtual',4),(3,'U79335787','Valentina Alexandra','Jein','Femenino','7745-3818','waluytomi@gmail.com','mi scorazón','Virtual',1);
 /*!40000 ALTER TABLE `tbl_student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,7 +155,7 @@ CREATE TABLE `tbl_user` (
   UNIQUE KEY `userCode` (`userCode`),
   KEY `RolID` (`RolID`),
   CONSTRAINT `tbl_user_ibfk_1` FOREIGN KEY (`RolID`) REFERENCES `tbl_role` (`RolID`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +164,7 @@ CREATE TABLE `tbl_user` (
 
 LOCK TABLES `tbl_user` WRITE;
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (1,'U001','Juan Pérez','Masculino','5555-1234','juan@example.com','ariel','202cb962ac59075b964b07152d234b70','Calle 1, Ciudad',1),(2,'U002','Ana García','Femenino','5555-5678','ana@example.com','aaron','202cb962ac59075b964b07152d234b70','Calle 2, Ciudad',2),(3,'U003','Carlos López','Masculino','5555-9876','carlos@example.com','carlol','202cb962ac59075b964b07152d234b70','Calle 3, Ciudad',2);
+INSERT INTO `tbl_user` VALUES (1,'U001','Juan Pérez','Masculino','5555-1234','juan@example.com','ariel','202cb962ac59075b964b07152d234b70','Calle 1, Ciudad',1),(2,'U002','Ana García','Femenino','5555-5678','ana@example.com','aaron','202cb962ac59075b964b07152d234b70','Calle 2, Ciudad',2),(3,'U003','Carlos López','Masculino','5555-9876','carlos@example.com','carlol','202cb962ac59075b964b07152d234b70','Calle 3, Ciudad',2),(6,'U22210154','Dalú','Femenino','77341732','daluytomi@gmail.com','Dalu','202cb962ac59075b964b07152d234b70','Col presita 2',1);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +180,7 @@ CREATE TABLE `tbl_vocation` (
   `vocationName` varchar(100) NOT NULL,
   `vocationInfo` varchar(255) NOT NULL,
   PRIMARY KEY (`VocationID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,6 +189,7 @@ CREATE TABLE `tbl_vocation` (
 
 LOCK TABLES `tbl_vocation` WRITE;
 /*!40000 ALTER TABLE `tbl_vocation` DISABLE KEYS */;
+INSERT INTO `tbl_vocation` VALUES (1,'Bachillerato técnico','Prueba'),(2,'Bachillerato general','Prueba 2'),(4,'Pruebas','Volveré');
 /*!40000 ALTER TABLE `tbl_vocation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,6 +200,42 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'puellaschooldb'
 --
+/*!50003 DROP FUNCTION IF EXISTS `GenerateUniqueCode` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `GenerateUniqueCode`() RETURNS varchar(10) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+    DECLARE newCode VARCHAR(10);
+    DECLARE codeExists INT DEFAULT 1;
+    
+    WHILE codeExists = 1 DO
+        SET newCode = CONCAT('U', LPAD(FLOOR(RAND() * 100000000), 8, '0')); -- Generador de código
+        
+        -- Comprarador para evitar repetidos
+        SELECT COUNT(*) INTO codeExists
+        FROM (
+            SELECT studentCode AS code FROM tbl_student
+            UNION
+            SELECT userCode AS code FROM tbl_user
+        ) AS combinedCodes
+        WHERE code = newCode;
+    END WHILE;
+    
+    RETURN newCode;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_CreateReport` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -254,13 +292,16 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CreateStudent`(
-    IN theCode VARCHAR(10), IN theName VARCHAR(255), IN theLastName VARCHAR(255),
-    IN theGender VARCHAR(50), IN thePhone VARCHAR(50), IN theEmail VARCHAR(100),
-    IN theAddress VARCHAR(255), IN theModality VARCHAR(50), IN vID INT
+    IN theName VARCHAR(255), IN theLastName VARCHAR(255), 
+    IN theGender VARCHAR(50), IN thePhone VARCHAR(50), 
+    IN theEmail VARCHAR(100), IN theAddress VARCHAR(255), 
+    IN theModality VARCHAR(50), IN vID INT
 )
 BEGIN
+    DECLARE newCode VARCHAR(10);
+    SET newCode = GenerateUniqueCode();
     INSERT INTO tbl_Student (studentCode, studentName, studentLastName, studentGender, studentPhone, studentEmail, studentAddress, studentModality, VocationID)
-    VALUES (theCode, theName, theLastName, theGender, thePhone, theEmail, theAddress, theModality, vID);
+    VALUES (newCode, theName, theLastName, theGender, thePhone, theEmail, theAddress, theModality, vID);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -299,14 +340,16 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CreateUser`( -- create
-    IN theCode VARCHAR(10), IN theName VARCHAR(255),
-    IN theGender VARCHAR(50), IN thePhone VARCHAR(50),
-    IN theEmail VARCHAR(100), IN theNickname VARCHAR(25),
-    IN thePassword VARCHAR(500), IN theAddress VARCHAR(255), IN rID INT
+    IN theName VARCHAR(255), IN theGender VARCHAR(50), 
+    IN thePhone VARCHAR(50), IN theEmail VARCHAR(100), 
+    IN theNickname VARCHAR(25), IN thePassword VARCHAR(500), 
+    IN theAddress VARCHAR(255), IN rID INT
 )
 BEGIN
+    DECLARE newCode VARCHAR(10);
+    SET newCode = GenerateUniqueCode();
     INSERT INTO tbl_User (userCode, userName, userGender, userPhone, userEmail, userNickname, userPassword, userAddress, RolID)
-    VALUES (theCode, theName, theGender, thePhone, theEmail, theNickname, thePassword, theAddress, rID);
+    VALUES (newCode, theName, theGender, thePhone, theEmail, theNickname, thePassword, theAddress, rID);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -559,7 +602,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_SelectStudentById`(
     IN sID INT
 )
 BEGIN
-    SELECT StudentID, studentCode, studentName, studentLastName, studentGender, studentPhone, studentEmail, studentAddress, studentModality, vocationName
+    SELECT StudentID, studentCode, studentName, studentLastName, studentGender, studentPhone, studentEmail, studentAddress, studentModality, v.VocationID AS 'VocationID', vocationName
     FROM tbl_Student s INNER JOIN tbl_Vocation v ON s.VocationID = v.VocationID WHERE s.StudentID = sID;
 END ;;
 DELIMITER ;
@@ -767,12 +810,12 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_UpdateStudent`(
-    IN sID INT, IN theCode VARCHAR(10), IN theName VARCHAR(255),
+    IN sID INT, IN theName VARCHAR(255),
     IN theLastName VARCHAR(255), IN theGender VARCHAR(50), IN thePhone VARCHAR(50),
     IN theEmail VARCHAR(100), IN theAddress VARCHAR(255), IN theModality VARCHAR(50), IN vID INT
 )
 BEGIN
-    UPDATE tbl_Student SET studentCode = theCode, studentName = theName, studentLastName = theLastName, studentGender = theGender,
+    UPDATE tbl_Student SET studentName = theName, studentLastName = theLastName, studentGender = theGender,
         studentPhone = thePhone, studentEmail = theEmail, studentAddress = theAddress, studentModality = theModality, VocationID = vID
     WHERE StudentID = sID;
 END ;;
@@ -859,4 +902,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-22 18:08:16
+-- Dump completed on 2024-09-27 11:53:58

@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Roles</title>
+    <title>Vocaciones</title>
 </head>
 
 <body>
     <div class="container">
         <div class="card mt-5 p-4">
-            <h2 class="mb-4">Lista de roles</h2>
+            <h2 class="mb-4">Lista de vocaciones</h2>
             <div class="d-flex justify-content-between mb-3">
-                <a href="./roleIndex.php?action=create" class="btn btn-success">Crear Rol</a>
+                <a href="./vocationIndex.php?action=create" class="btn btn-success">Crear Vocación</a>
                 <a href="../dist/pages/index.php" class="btn btn-secondary">Volver al inicio</a>
             </div>
             <div class="table-responsive">
@@ -27,14 +27,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($roles as $rol) : ?>
+                        <?php foreach ($vocations as $vocation) : ?>
                             <tr>
-                                <td><?= htmlspecialchars($rol['RolID']); ?></td>
-                                <td><?= htmlspecialchars($rol['rolName']); ?></td>
-                                <td><?= htmlspecialchars($rol['rolInfo']); ?></td>
+                                <td><?= htmlspecialchars($vocation['VocationID']); ?></td>
+                                <td><?= htmlspecialchars($vocation['vocationName']); ?></td>
+                                <td><?= htmlspecialchars($vocation['vocationInfo']); ?></td>
                                 <td class="text-center">
-                                    <a href="roleIndex.php?action=edit&id=<?= $rol['RolID'] ?>" class="btn btn-warning btn-sm">Editar</a>
-                                    <a href="roleIndex.php?action=delete&id=<?= $rol['RolID'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                                    <a href="vocationIndex.php?action=edit&id=<?= $vocation['VocationID'] ?>" class="btn btn-warning btn-sm">Editar</a>
+                                    <a href="vocationIndex.php?action=delete&id=<?= $vocation['VocationID'] ?>" class="btn btn-danger btn-sm">Eliminar</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

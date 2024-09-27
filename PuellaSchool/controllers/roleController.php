@@ -53,8 +53,21 @@ class RoleController
 
     public function delete($id)
     {
-        $this->role->RolID = $id;
-        header("Location: roleIndex.php");
-        return $this->role->delete();
+        $this->role->RoleID = $id;
+            $this->role->getroleByID();
+        
+            if ($_POST) {
+                if (isset($_POST['confirmDelete'])) {
+                    $this->role->delete();
+                    header("Location: roleIndex.php");
+                    exit();
+                } else {
+                    echo "<script>alert('Debe confirmar que ha leído la advertencia antes de eliminar.');</script>";
+                }
+            }
+        
+            $rol = $this->role;
+            include(dirname(__FILE__) . '/../views/role/roleDelete.php');
     }
+    
 }
