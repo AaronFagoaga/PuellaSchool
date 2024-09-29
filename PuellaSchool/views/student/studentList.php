@@ -16,6 +16,7 @@
             <div class="d-flex justify-content-between mb-3">
                 <a href="./studentIndex.php?action=create" class="btn btn-success">Crear estudiante</a>
                 <a href="../dist/pages/index.php" class="btn btn-secondary">Volver al inicio</a>
+                <a href="./studentIndex.php?action=import" class="btn btn-info">Importar estudiantes</a>
             </div>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">

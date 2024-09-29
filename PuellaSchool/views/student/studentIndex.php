@@ -34,6 +34,9 @@ switch ($action) {
             $controller->index();
         }
         break;
+        case 'import':
+            $controller->import();
+            break;
 
     default:
         $controller->index();
