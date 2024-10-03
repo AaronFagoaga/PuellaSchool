@@ -5,21 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Eliminar rol</title>
+    <title>Eliminar materia</title>
 </head>
 
 <body>
     <div class="container mt-5">
         <div class="card p-4">
-            <h2 class="mb-4">Eliminar rol</h2>
+            <h2 class="mb-4">Eliminar materia</h2>
             <form action="" method="POST">
                 <div class="mb-3">
-                    <label for="rolName" class="form-label">Nombre:</label>
-                    <input type="text" id="rolName" name="rolName" value="<?= htmlspecialchars($rol->rolName) ?>" class="form-control" disabled>
+                    <label for="subjectName" class="form-label">Nombre:</label>
+                    <input type="text" id="subjectName" name="subjectName" value="<?= htmlspecialchars($subj->subjectName) ?>" class="form-control" disabled>
                 </div>
                 <div class="mb-3">
-                    <label for="rolInfo" class="form-label">Descripción:</label>
-                    <input type="text" id="rolInfo" name="rolInfo" value="<?= htmlspecialchars($rol->rolInfo) ?>" class="form-control" disabled>
+                    <label for="subjectInfo" class="form-label">Descripción:</label>
+                    <input type="text" id="subjectInfo" name="subjectInfo" value="<?= htmlspecialchars($subj->subjectInfo) ?>" class="form-control" disabled>
                 </div>
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" id="confirmDelete" name="confirmDelete" required>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-danger" id="deleteButton" disabled>Eliminar</button>
-                    <a href="./roleIndex.php" class="btn btn-secondary">Cancelar</a>
+                    <a href="./subjectIndex.php" class="btn btn-secondary">Cancelar</a>
                 </div>
             </form>
         </div>

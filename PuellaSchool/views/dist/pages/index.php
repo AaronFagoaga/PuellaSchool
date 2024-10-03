@@ -87,6 +87,11 @@ if ($_SESSION['user'] == "") {
                                         <p>Vocaciones</p>
                                     </a> 
                                 </li>
+                                <li class="nav-item"> 
+                                    <a href="../../subject/subjectIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                        <p>Asignaturas</p>
+                                    </a> 
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-header">DOCUMENTACIÓN</li>

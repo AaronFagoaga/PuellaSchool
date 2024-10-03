@@ -37,7 +37,7 @@ CREATE TABLE `tbl_report` (
   CONSTRAINT `tbl_report_ibfk_1` FOREIGN KEY (`StudentID`) REFERENCES `tbl_student` (`StudentID`) ON DELETE SET NULL,
   CONSTRAINT `tbl_report_ibfk_2` FOREIGN KEY (`UserID`) REFERENCES `tbl_user` (`UserID`) ON DELETE CASCADE,
   CONSTRAINT `tbl_report_ibfk_3` FOREIGN KEY (`SubjectID`) REFERENCES `tbl_subject` (`SubjectID`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +46,7 @@ CREATE TABLE `tbl_report` (
 
 LOCK TABLES `tbl_report` WRITE;
 /*!40000 ALTER TABLE `tbl_report` DISABLE KEYS */;
+INSERT INTO `tbl_report` VALUES (1,'2024-10-03','Ah','Bonita',1,1,1);
 /*!40000 ALTER TABLE `tbl_report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +122,7 @@ CREATE TABLE `tbl_subject` (
   `subjectName` varchar(100) NOT NULL,
   `subjectInfo` varchar(255) NOT NULL,
   PRIMARY KEY (`SubjectID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,6 +131,7 @@ CREATE TABLE `tbl_subject` (
 
 LOCK TABLES `tbl_subject` WRITE;
 /*!40000 ALTER TABLE `tbl_subject` DISABLE KEYS */;
+INSERT INTO `tbl_subject` VALUES (1,'Matemáticas','Prueba de info'),(2,'Lenguaje','Otra prueba'),(3,'Paulita','mi vida');
 /*!40000 ALTER TABLE `tbl_subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +182,7 @@ CREATE TABLE `tbl_vocation` (
   `vocationName` varchar(100) NOT NULL,
   `vocationInfo` varchar(255) NOT NULL,
   PRIMARY KEY (`VocationID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -247,12 +249,12 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CreateReport`(
-    IN theReportDate DATE, IN theReportSubject VARCHAR(255), IN theReportDetails TEXT, 
+    IN theReportSubject VARCHAR(255), IN theReportDetails TEXT, 
     IN sID INT, IN uID INT, IN subID INT
 )
 BEGIN
     INSERT INTO tbl_Report (reportDate, reportSubject, reportDetails, StudentID, UserID, SubjectID)
-    VALUES (theReportDate, theReportSubject, theReportDetails, sID, uID, subID);
+    VALUES (NOW(), theReportSubject, theReportDetails, sID, uID, subID);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -761,12 +763,12 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_UpdateReport`(
-    IN rID INT, IN theReportDate DATE, IN theReportSubject VARCHAR(255), IN theReportDetails TEXT,
+    IN rID INT, IN theReportSubject VARCHAR(255), IN theReportDetails TEXT,
     IN sID INT, IN uID INT, IN subID INT
 )
 BEGIN
-    UPDATE tbl_Report SET reportDate = theReportDate, reportSubject = theReportSubject, reportDetails = theReportDetails,
-	sID = studentID, uID = userID, SubjectID = subID WHERE ReportID = rID;
+    UPDATE tbl_Report SET reportSubject = theReportSubject, reportDetails = theReportDetails,
+	StudentID = sID, UserID = uID , SubjectID = subID WHERE ReportID = rID;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -902,4 +904,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-27 11:53:58
+-- Dump completed on 2024-10-03  9:20:59

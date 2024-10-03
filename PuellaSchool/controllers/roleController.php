@@ -54,7 +54,7 @@ class RoleController
     public function delete($id)
     {
         $this->role->RoleID = $id;
-            $this->role->getroleByID();
+            $this->role->getRoleByID();
         
             if ($_POST) {
                 if (isset($_POST['confirmDelete'])) {
