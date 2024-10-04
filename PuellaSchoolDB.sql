@@ -519,8 +519,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_SelectReportById`(
     IN rID INT
 )
 BEGIN
-    SELECT ReportID, reportDate, reportSubject, reportDetails, studentName, userName, subjectName FROM tbl_Report r
-    LEFT JOIN tbl_Student s ON r.StudentID = s.StudentID LEFT JOIN tbl_User u ON r.UserID = u.UserID 
+    SELECT ReportID, reportDate, reportSubject, reportDetails, studentName, userName, subjectName, studentCode,
+    s.StudentID AS 'StudentID', u.UserID AS 'UserID', sub.SubjectID AS 'SubjectID'
+    FROM tbl_Report r LEFT JOIN tbl_Student s ON r.StudentID = s.StudentID LEFT JOIN tbl_User u ON r.UserID = u.UserID 
     LEFT JOIN tbl_Subject sub ON r.SubjectID = sub.SubjectID WHERE r.ReportID = rID;
 END ;;
 DELIMITER ;
@@ -540,7 +541,8 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_SelectReports`()
 BEGIN
-    SELECT ReportID, reportDate, reportSubject, reportDetails, studentName, userName, subjectName
+    SELECT ReportID, reportDate, reportSubject, reportDetails, studentName, userName, subjectName, studentCode,
+    s.StudentID AS 'StudentID', u.UserID AS 'UserID', sub.SubjectID AS 'SubjectID'  
     FROM tbl_Report r LEFT JOIN tbl_Student s ON r.StudentID = s.StudentID
     LEFT JOIN tbl_User u ON r.UserID = u.UserID LEFT JOIN tbl_Subject sub ON r.SubjectID = sub.SubjectID;
 END ;;
@@ -904,4 +906,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-03  9:20:59
+-- Dump completed on 2024-10-04 17:28:59
