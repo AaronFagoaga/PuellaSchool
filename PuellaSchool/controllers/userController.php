@@ -96,6 +96,7 @@ class UserController
 
             if ($userData) {
                 session_start();
+                $_SESSION["userID"] = $userData['UserID'];
                 $_SESSION["user"] = $userData['userName'];
                 $_SESSION["role"] = $userData['RolID'];
 

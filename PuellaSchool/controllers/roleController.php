@@ -53,7 +53,7 @@ class RoleController
 
     public function delete($id)
     {
-        $this->role->RoleID = $id;
+        $this->role->RolID = $id;
             $this->role->getRoleByID();
         
             if ($_POST) {

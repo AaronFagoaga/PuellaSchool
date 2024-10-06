@@ -68,10 +68,19 @@
             return $result;
         }
 
-        public function getReports()
+        public function getReportsAdmin()
         {
-            $query = "CALL sp_SelectReports();";
+            $query = "CALL sp_SelectReportsAdmin();";
             $result = $this->conn->prepare($query);
+            $result->execute();
+            return $result;
+        }
+
+        public function getReports($userID)
+        {
+            $query = "CALL sp_SelectReports(:userID);";
+            $result = $this->conn->prepare($query);
+            $result->bindParam("userID", $userID);
             $result->execute();
             return $result;
         }

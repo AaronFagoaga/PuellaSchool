@@ -8,38 +8,48 @@ if ($_SESSION['user'] == "") {
 
 <?php
 
-require_once '../../controllers/studentController.php';
+require_once '../../controllers/reportController.php';
 
+$userID = $_SESSION["userID"];
+$rol = $_SESSION["role"];
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-$controller = new StudentController();
+$controller = new ReportController();
 
+function redirectByRole($rol, $userID, $controller) {
+    if ($rol != 1) {
+        $controller->index($userID);
+    } else {
+        $controller->indexAdmin();
+    }
+}
 
 switch ($action) {
     case 'create':
         $controller->create();
         break;
+
     case 'edit':
         if ($id) {
             $controller->edit($id);
         } else {
-            $controller->index();
+            redirectByRole($rol, $userID, $controller);
+            break;
         }
         break;
+
     case 'delete':
         if ($id) {
             $controller->delete($id);
         } else {
-            $controller->index();
+            redirectByRole($rol, $userID, $controller);
+            break;
         }
-        break;
-    case 'import':
-        $controller->import();
         break;
 
     default:
-        $controller->index();
+        redirectByRole($rol, $userID, $controller);
         break;
 }
 ?>

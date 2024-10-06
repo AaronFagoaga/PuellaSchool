@@ -37,7 +37,7 @@ CREATE TABLE `tbl_report` (
   CONSTRAINT `tbl_report_ibfk_1` FOREIGN KEY (`StudentID`) REFERENCES `tbl_student` (`StudentID`) ON DELETE SET NULL,
   CONSTRAINT `tbl_report_ibfk_2` FOREIGN KEY (`UserID`) REFERENCES `tbl_user` (`UserID`) ON DELETE CASCADE,
   CONSTRAINT `tbl_report_ibfk_3` FOREIGN KEY (`SubjectID`) REFERENCES `tbl_subject` (`SubjectID`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `tbl_report` (
 
 LOCK TABLES `tbl_report` WRITE;
 /*!40000 ALTER TABLE `tbl_report` DISABLE KEYS */;
-INSERT INTO `tbl_report` VALUES (1,'2024-10-03','Ah','Bonita',1,1,1);
+INSERT INTO `tbl_report` VALUES (1,'2024-10-03','Ah','Bonita',1,1,1),(5,'2024-10-03','ehhxxz','Exxxz',5,1,1),(6,'2024-10-06','Awas','NoNoNo',1,1,1),(11,'2024-10-06','12szz','2121212sssszzz',5,2,2);
 /*!40000 ALTER TABLE `tbl_report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +97,7 @@ CREATE TABLE `tbl_student` (
   UNIQUE KEY `studentCode` (`studentCode`),
   KEY `VocationID` (`VocationID`),
   CONSTRAINT `tbl_student_ibfk_1` FOREIGN KEY (`VocationID`) REFERENCES `tbl_vocation` (`VocationID`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,7 +106,7 @@ CREATE TABLE `tbl_student` (
 
 LOCK TABLES `tbl_student` WRITE;
 /*!40000 ALTER TABLE `tbl_student` DISABLE KEYS */;
-INSERT INTO `tbl_student` VALUES (1,'U93768666','Paula Guadalupe','Dalu mi amor','Masculino','0745-3818','waluytomi@gmail.com','mi scorazón','Virtual',4),(3,'U79335787','Valentina Alexandra','Jein','Femenino','7745-3818','waluytomi@gmail.com','mi scorazón','Virtual',1);
+INSERT INTO `tbl_student` VALUES (1,'U93768666','Paula Guadalupe','Dalu mi amor','Masculino','0745-3818','waluytomi@gmail.com','mi scorazón','Virtual',4),(3,'U79335787','Valentina Alexandra','Jein','Femenino','7745-3818','waluytomi@gmail.com','mi scorazón','Virtual',1),(4,'U25217875','Juan','Pérez','Masculino','987654321','juan@example.com','Calle Falsa 123','Presencial',1),(5,'U71644434','Ana','Gómez','Femenino','1234567890','ana@example.com','Calle Real 456','Virtual',2);
 /*!40000 ALTER TABLE `tbl_student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +157,7 @@ CREATE TABLE `tbl_user` (
   UNIQUE KEY `userCode` (`userCode`),
   KEY `RolID` (`RolID`),
   CONSTRAINT `tbl_user_ibfk_1` FOREIGN KEY (`RolID`) REFERENCES `tbl_role` (`RolID`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,7 +166,7 @@ CREATE TABLE `tbl_user` (
 
 LOCK TABLES `tbl_user` WRITE;
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (1,'U001','Juan Pérez','Masculino','5555-1234','juan@example.com','ariel','202cb962ac59075b964b07152d234b70','Calle 1, Ciudad',1),(2,'U002','Ana García','Femenino','5555-5678','ana@example.com','aaron','202cb962ac59075b964b07152d234b70','Calle 2, Ciudad',2),(3,'U003','Carlos López','Masculino','5555-9876','carlos@example.com','carlol','202cb962ac59075b964b07152d234b70','Calle 3, Ciudad',2),(6,'U22210154','Dalú','Femenino','77341732','daluytomi@gmail.com','Dalu','202cb962ac59075b964b07152d234b70','Col presita 2',1);
+INSERT INTO `tbl_user` VALUES (1,'U001','Juan Pérez','Masculino','5555-1234','juan@example.com','ariel','202cb962ac59075b964b07152d234b70','Calle 1, Ciudad',1),(2,'U002','Ana García','Femenino','5555-5678','ana@example.com','aaron','202cb962ac59075b964b07152d234b70','Calle 2, Ciudad',2),(3,'U003','Carlos López','Masculino','5555-9876','carlos@example.com','carlol','202cb962ac59075b964b07152d234b70','Calle 3, Ciudad',2),(6,'U22210154','Dalú','Femenino','77341732','daluytomi@gmail.com','Dalu','202cb962ac59075b964b07152d234b70','Col presita 2',1),(9,'U07602407','A','Masculino','A','xx@gmail.com','m','202cb962ac59075b964b07152d234b70','123',2);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -539,9 +539,34 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_SelectReports`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_SelectReports`(
+	IN uID INT
+)
 BEGIN
     SELECT ReportID, reportDate, reportSubject, reportDetails, studentName, userName, subjectName, studentCode,
+    s.StudentID AS 'StudentID', u.UserID AS 'UserID', sub.SubjectID AS 'SubjectID'  
+    FROM tbl_Report r LEFT JOIN tbl_Student s ON r.StudentID = s.StudentID
+    LEFT JOIN tbl_User u ON r.UserID = u.UserID LEFT JOIN tbl_Subject sub ON r.SubjectID = sub.SubjectID
+    WHERE u.UserID = uID;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_SelectReportsAdmin` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_SelectReportsAdmin`()
+BEGIN
+	SELECT ReportID, reportDate, reportSubject, reportDetails, studentName, userName, subjectName, studentCode,
     s.StudentID AS 'StudentID', u.UserID AS 'UserID', sub.SubjectID AS 'SubjectID'  
     FROM tbl_Report r LEFT JOIN tbl_Student s ON r.StudentID = s.StudentID
     LEFT JOIN tbl_User u ON r.UserID = u.UserID LEFT JOIN tbl_Subject sub ON r.SubjectID = sub.SubjectID;
@@ -906,4 +931,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-04 17:28:59
+-- Dump completed on 2024-10-06 13:30:10

@@ -65,11 +65,15 @@ if ($_SESSION['user'] == "") {
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                
+                                <li class="nav-item">
+                                    <a href="../../report/reportIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                        <p>Reportes</p>
+                                    </a>
+                                </li>
                                 <?php if ($_SESSION["role"] == 1): ?>
-                                <li class="nav-item"> <a href="../../user/userIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
-                                        <p>Usuarios</p>
-                                    </a> </li>
+                                    <li class="nav-item"> <a href="../../user/userIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                            <p>Usuarios</p>
+                                        </a> </li>
                                     <li class="nav-item">
                                         <a href="../../role/roleIndex.php" class="nav-link">
                                             <i class="nav-icon bi bi-table"></i>
@@ -77,20 +81,20 @@ if ($_SESSION['user'] == "") {
                                         </a>
                                     </li>
                                 <?php endif; ?>
-                                <li class="nav-item"> 
+                                <li class="nav-item">
                                     <a href="../../student/studentIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
                                         <p>Estudiantes</p>
-                                    </a> 
+                                    </a>
                                 </li>
-                                <li class="nav-item"> 
+                                <li class="nav-item">
                                     <a href="../../vocation/vocationIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
                                         <p>Vocaciones</p>
-                                    </a> 
+                                    </a>
                                 </li>
-                                <li class="nav-item"> 
+                                <li class="nav-item">
                                     <a href="../../subject/subjectIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
                                         <p>Asignaturas</p>
-                                    </a> 
+                                    </a>
                                 </li>
                             </ul>
                         </li>

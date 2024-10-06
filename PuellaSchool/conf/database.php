@@ -3,7 +3,7 @@
         private $host = "localhost";
         private $database = "PuellaSchoolDB";
         private $user = "root";
-        private $password = "1234";
+        private $password = "123123";
         private $conn;
 
         //Método para establecer la conexión
