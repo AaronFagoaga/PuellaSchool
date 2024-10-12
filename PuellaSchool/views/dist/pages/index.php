@@ -23,6 +23,13 @@ if ($_SESSION['user'] == "") {
     <link rel="stylesheet" href="../../dist/css/adminlte.css"><!--end::Required Plugin(AdminLTE)--><!-- apexcharts -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous"><!-- jsvectormap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css" integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=" crossorigin="anonymous">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../../resources/generateReport/reportType6.css">
 </head> <!--end::Head--> <!--begin::Body-->
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
@@ -101,14 +108,26 @@ if ($_SESSION['user'] == "") {
                         <li class="nav-header">DOCUMENTACIÓN</li>
                         <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-filetype-js"></i>
                                 <p>
-                                    Estudiantes Reporte
+                                    Generación Reportes
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-filetype-js"></i>
-                                        <p>En fecha especifica</p>
-                                    </a> </li>
+                                <li class="nav-item">
+                                    <a href="../../generateReport/generateReportIndex.php?action=reportType1" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                        <p>Reporte de Tipo 1</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="../../generateReport/generateReportIndex.php?action=reportType2" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                        <p>Reporte de Tipo 2</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="../../generateReport/generateReportIndex.php?action=reportType4" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                        <p>Reporte de Tipo 4</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-header">OTROS</li>
@@ -187,16 +206,43 @@ if ($_SESSION['user'] == "") {
                         </div> <!--end::Col-->
                     </div> <!--end::Row--> <!--begin::Row-->
                     <div class="row"> <!-- Start col -->
-                        <div class="col-lg-7 connectedSortable">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <h3 class="card-title">Sales Value</h3>
-                                </div>
-                                <div class="card-body">
-                                    <div id="revenue-chart"></div>
-                                </div>
-                            </div> <!-- /.card --> <!-- DIRECT CHAT -->
-                        </div> <!-- /.Start col --> <!-- Start col -->
+                        <?php
+
+                        require_once(dirname(__FILE__) . "/../../../conf/database.php");
+                        require_once(dirname(__FILE__) . "/../../../models/generateReportModel.php");
+                        $database = new Database();
+                        $conn = $database->getConnection();
+
+                        $query = "SELECT MIN(reportDate) AS startDate, MAX(reportDate) AS endDate FROM tbl_report";
+                        $result = $conn->prepare($query);
+                        $result->execute();
+                        $data = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                        if ($data) {
+                            $startDate = $data[0]['startDate'];
+                            $endDate = $data[0]['endDate'];
+
+                            $model = new GenerateReportModel($conn);
+                            $result = $model->getReportType4($startDate, $endDate, null, null);
+                            $reports = $result->fetchAll(PDO::FETCH_ASSOC);
+                        ?>
+
+                            <div class="col-lg-7 connectedSortable">
+                                <figure class="highcharts-figure">
+                                    <div id="container"></div>
+                                    <p class="highcharts-description">
+                                        Cantidad de reportes por fecha, puede digitar las fechas para obtener registro y poder filtrar por materia o vocación.
+                                    </p>
+                                </figure>
+                            </div>
+
+                        <?php
+                            include(dirname(__FILE__) . '/../../../resources/generateReport/reportType4.php');
+                        } else {
+                            echo "No se encontraron fechas en la base de datos.";
+                        }
+
+                        ?>
                     </div> <!-- /.row (main row) -->
                 </div> <!--end::Container-->
             </div> <!--end::App Content-->
