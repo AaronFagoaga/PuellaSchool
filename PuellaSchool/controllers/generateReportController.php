@@ -53,6 +53,23 @@ class GenerateReportController
         include(dirname(__FILE__) . '/../views/generateReport/reportType2List.php');
     }
 
+    public function reportType3()
+    {
+        $startDate = isset($_POST['startDate']) ? $_POST['startDate'] : null;
+        $endDate = isset($_POST['endDate']) ? $_POST['endDate'] : null;
+
+        $subjectsResult = $this->report->getSubjects();
+        $subjects = $subjectsResult->fetchAll(PDO::FETCH_ASSOC);
+
+        $vocationsResult = $this->report->getVocations();
+        $vocations = $vocationsResult->fetchAll(PDO::FETCH_ASSOC);
+
+        $result = $this->report->getReportType3($startDate, $endDate);
+        $reports = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        include(dirname(__FILE__) . '/../views/generateReport/reportType3List.php');
+    }
+
     public function reportType4()
     {
         $startDate = isset($_POST['startDate']) ? $_POST['startDate'] : null;

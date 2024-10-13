@@ -27,6 +27,10 @@ switch ($action) {
         $controller->reportType2();
         break;
 
+    case 'reportType3':
+        $controller->reportType3();
+        break;
+
     case 'reportType4':
         $controller->reportType4();
         break;

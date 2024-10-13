@@ -76,6 +76,16 @@
             return $result;
         }
 
+        public function getReportType3($startDate, $endDate)
+        {
+            $query = "CALL sp_ReportType3(:startDate, :endDate);";
+            $result = $this->conn->prepare($query);
+            $result->bindParam("startDate", $startDate);
+            $result->bindParam("endDate", $endDate);
+            $result->execute();
+            return $result;
+        }
+
         public function getReportType4($startDate, $endDate, $subjectName, $vocationName)
         {
             $query = "CALL sp_ReportType4(:startDate, :endDate, :subjectName, :vocationName);";

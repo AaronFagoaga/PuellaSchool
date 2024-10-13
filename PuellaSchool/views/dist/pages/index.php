@@ -123,6 +123,13 @@ if ($_SESSION['user'] == "") {
                                         <p>Reporte de Tipo 2</p>
                                     </a>
                                 </li>
+                                <?php if ($_SESSION["role"] == 1): ?>
+                                <li class="nav-item">
+                                    <a href="../../generateReport/generateReportIndex.php?action=reportType3" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                        <p>Reporte de Tipo 3</p>
+                                    </a>
+                                </li>
+                                <?php endif; ?>
                                 <li class="nav-item">
                                     <a href="../../generateReport/generateReportIndex.php?action=reportType4" class="nav-link"> <i class="nav-icon bi bi-table"></i>
                                         <p>Reporte de Tipo 4</p>
