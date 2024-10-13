@@ -77,7 +77,22 @@ if ($_SESSION['user'] == "") {
                                         <p>Reportes</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="../../student/studentIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                        <p>Estudiantes</p>
+                                    </a>
+                                </li>
                                 <?php if ($_SESSION["role"] == 1): ?>
+                                    <li class="nav-item">
+                                        <a href="../../subject/subjectIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                            <p>Asignaturas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="../../vocation/vocationIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                            <p>Vocaciones</p>
+                                        </a>
+                                    </li>
                                     <li class="nav-item"> <a href="../../user/userIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
                                             <p>Usuarios</p>
                                         </a> </li>
@@ -88,21 +103,6 @@ if ($_SESSION['user'] == "") {
                                         </a>
                                     </li>
                                 <?php endif; ?>
-                                <li class="nav-item">
-                                    <a href="../../student/studentIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
-                                        <p>Estudiantes</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../vocation/vocationIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
-                                        <p>Vocaciones</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../subject/subjectIndex.php" class="nav-link"> <i class="nav-icon bi bi-table"></i>
-                                        <p>Asignaturas</p>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
                         <li class="nav-header">DOCUMENTACIÓN</li>
@@ -118,23 +118,23 @@ if ($_SESSION['user'] == "") {
                                         <p>Reporte de Tipo 1</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="../../generateReport/generateReportIndex.php?action=reportType2" class="nav-link"> <i class="nav-icon bi bi-table"></i>
-                                        <p>Reporte de Tipo 2</p>
-                                    </a>
-                                </li>
                                 <?php if ($_SESSION["role"] == 1): ?>
-                                <li class="nav-item">
-                                    <a href="../../generateReport/generateReportIndex.php?action=reportType3" class="nav-link"> <i class="nav-icon bi bi-table"></i>
-                                        <p>Reporte de Tipo 3</p>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="../../generateReport/generateReportIndex.php?action=reportType2" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                            <p>Reporte de Tipo 2</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="../../generateReport/generateReportIndex.php?action=reportType3" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                            <p>Reporte de Tipo 3</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="../../generateReport/generateReportIndex.php?action=reportType4" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                            <p>Reporte de Tipo 4</p>
+                                        </a>
+                                    </li>
                                 <?php endif; ?>
-                                <li class="nav-item">
-                                    <a href="../../generateReport/generateReportIndex.php?action=reportType4" class="nav-link"> <i class="nav-icon bi bi-table"></i>
-                                        <p>Reporte de Tipo 4</p>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
                         <li class="nav-header">OTROS</li>

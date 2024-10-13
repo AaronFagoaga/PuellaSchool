@@ -1,6 +1,7 @@
 <?php
 session_start();
-if ($_SESSION['user'] == "") {
+
+if (!isset($_SESSION['user']) || $_SESSION['user'] == "" || $_SESSION["role"] != 1) {
     header("Location: ../../index.php");
     exit();
 }
